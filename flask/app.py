@@ -8,16 +8,15 @@ def home():
     return 'TON Address Converter is running.'
 
 @app.route('/convert', methods=['POST'])
-def convert_address():
+def convert():
+    data = request.get_json(force=True)
+    raw = data.get('raw')
+    if not raw:
+        return jsonify({'error': 'Missing raw address'}), 400
+
     try:
-        data = request.get_json()
-        raw_address = data.get('raw')
-        if not raw_address:
-            return jsonify({'error': 'Missing address'}), 400
-
-        address = Address(raw_address)
-        friendly = address.to_str(bounceable=True, url_safe=True)
-
+        addr = Address(raw)
+        friendly = addr.to_str(bounceable=True, url_safe=True)
         return jsonify({'friendly': friendly})
     except Exception as e:
         return jsonify({'error': str(e)}), 400
