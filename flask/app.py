@@ -3,6 +3,10 @@ from pytoniq_core import Address
 
 app = Flask(__name__)
 
+@app.route('/')
+def home():
+    return 'TON Address Converter is running.'
+
 @app.route('/convert', methods=['POST'])
 def convert_address():
     try:
@@ -18,7 +22,5 @@ def convert_address():
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
-# НЕ забудь запустить приложение, если ты локально тестируешь:
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    app.run(host='0.0.0.0', port=5000)
