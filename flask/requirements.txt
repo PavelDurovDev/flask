@@ -1,5 +1,2 @@
 Flask==2.2.5
-Werkzeug==2.2.2
-MarkupSafe==2.1.1
-Flask
-pytoniq_core
+pytoniq_core==0.1.43
